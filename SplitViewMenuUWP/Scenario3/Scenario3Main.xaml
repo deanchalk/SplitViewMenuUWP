@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="SplitViewMenuUWP.Scenario3.Scenario3Main"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:splitViewMenu="using:SplitViewMenu"
+    xmlns:scenario3="using:SplitViewMenuUWP.Scenario3"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="MenuTemplate1">
+            <Grid Background="Azure">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <FontIcon FontSize="16" Glyph="{Binding Path=SymbolAsChar}" VerticalAlignment="Center"
+                          HorizontalAlignment="Center" ToolTipService.ToolTip="{Binding Path=Label}" />
+                <TextBlock Grid.Column="1" Text="{Binding Path=Label}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="MenuTemplate2">
+            <Grid Background="AliceBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <FontIcon FontSize="16" Glyph="{Binding Path=SymbolAsChar}" VerticalAlignment="Center"
+                          HorizontalAlignment="Center" ToolTipService.ToolTip="{Binding Path=Label}" />
+                <TextBlock Grid.Column="1" Text="{Binding Path=Label}" FontWeight="Bold" />
+                <TextBlock Grid.Column="1" Grid.Row="1" FontStyle="Italic" Foreground="Red" Text="(additional info here)" />
+            </Grid>
+        </DataTemplate>
+        <scenario3:NavMenuItemTemplateSelector x:Key="MenuItemTemplateSelector" Page1Template="{StaticResource MenuTemplate1}" OtherPageTemplate="{StaticResource MenuTemplate2}" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <splitViewMenu:SplitViewMenu x:Name="SplitViewMenu" NavigationItems="{Binding MenuItems}"
+                                     InitialPage="{Binding InitialPage}" MenuItemDataTemplateSelector="{StaticResource MenuItemTemplateSelector}" NavMenuItemTemplate="{x:Null}" />
+    </Grid>
+</Page>
